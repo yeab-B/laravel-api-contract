@@ -182,7 +182,7 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for deta
 
 ### Security Vulnerabilities
 
-If you discover any security-related issues, please email security@example.com instead of using the issue tracker.
+If you discover any security-related issues, please email eliora.main@gmail.com instead of using the issue tracker.
 
 ## 📄 License
 
