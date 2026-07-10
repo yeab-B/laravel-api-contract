@@ -10,8 +10,8 @@
     <a href="https://packagist.org/packages/yeab/laravel-api-contract">
         <img src="https://img.shields.io/packagist/dt/yeab/laravel-api-contract.svg?style=flat-square" alt="Total Downloads">
     </a>
-    <a href="https://github.com/yeab/laravel-api-contract/actions">
-        <img src="https://img.shields.io/github/actions/workflow/status/yeab/laravel-api-contract/tests.yml?branch=main&style=flat-square" alt="Build Status">
+    <a href="https://github.com/yeab-B/laravel-api-contract/actions">
+        <img src="https://img.shields.io/github/actions/workflow/status/yeab-B/laravel-api-contract/tests.yml?branch=main&style=flat-square" alt="Build Status">
     </a>
     <a href="https://packagist.org/packages/yeab/laravel-api-contract">
         <img src="https://img.shields.io/packagist/l/yeab/laravel-api-contract.svg?style=flat-square" alt="License">
