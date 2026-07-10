@@ -11,6 +11,8 @@ use Yab\LaravelApiContract\Config\Configuration;
 
 class TestCommand extends Command
 {
+    public const SUCCESS = 0;
+    public const FAILURE = 1;
     protected $signature = 'api-contract:tests
                             {--output= : Path to the directory where test files will be written}';
 
@@ -30,7 +32,7 @@ class TestCommand extends Command
         if ($files === []) {
             $this->components->warn('No endpoints found; no test files generated.');
 
-            return Command::SUCCESS;
+            return self::SUCCESS;
         }
 
         $outputPath = $this->option('output');
@@ -41,7 +43,7 @@ class TestCommand extends Command
                 $this->line($file['content']);
             }
 
-            return Command::SUCCESS;
+            return self::SUCCESS;
         }
 
         $outputPath = (string) $outputPath;
@@ -52,7 +54,7 @@ class TestCommand extends Command
             if (!mkdir($outputPath, 0755, true) && !is_dir($outputPath)) {
                 $this->components->error("Failed to create directory: {$outputPath}");
 
-                return Command::FAILURE;
+                return self::FAILURE;
             }
         }
 
@@ -62,12 +64,12 @@ class TestCommand extends Command
             if (file_put_contents($filePath, $file['content']) === false) {
                 $this->components->error("Failed to write: {$filePath}");
 
-                return Command::FAILURE;
+                return self::FAILURE;
             }
         }
 
-        $this->components->success('PHPUnit feature tests written to: ' . $outputPath);
+        $this->components->info('PHPUnit feature tests written to: ' . $outputPath);
 
-        return Command::SUCCESS;
+        return self::SUCCESS;
     }
 }

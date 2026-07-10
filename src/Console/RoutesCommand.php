@@ -9,6 +9,8 @@ use Yab\LaravelApiContract\Contracts\RouteAnalyzerContract;
 
 class RoutesCommand extends Command
 {
+    public const SUCCESS = 0;
+    public const FAILURE = 1;
     protected $signature = 'api-contract:routes';
 
     protected $description = 'Discover and display all registered API routes.';
@@ -26,7 +28,7 @@ class RoutesCommand extends Command
         if ($collection->isEmpty()) {
             $this->warn('No API routes discovered.');
 
-            return Command::SUCCESS;
+            return self::SUCCESS;
         }
 
         $headers = ['Method', 'URI', 'Name', 'Controller', 'Middleware'];
@@ -49,6 +51,6 @@ class RoutesCommand extends Command
             (string) $collection->count(),
         );
 
-        return Command::SUCCESS;
+        return self::SUCCESS;
     }
 }

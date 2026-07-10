@@ -10,6 +10,8 @@ use Yab\LaravelApiContract\Support\ContractSerializer;
 
 class BuildCommand extends Command
 {
+    public const SUCCESS = 0;
+    public const FAILURE = 1;
     protected $signature = 'api-contract:build
         {--path= : The output path for the contract JSON file}
         {--pretty : Pretty-print the JSON output}';
@@ -47,6 +49,6 @@ class BuildCommand extends Command
 
         $this->line('Contract saved to: ' . $path);
 
-        return Command::SUCCESS;
+        return self::SUCCESS;
     }
 }

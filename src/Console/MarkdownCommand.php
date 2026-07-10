@@ -11,6 +11,8 @@ use Yab\LaravelApiContract\Config\Configuration;
 
 class MarkdownCommand extends Command
 {
+    public const SUCCESS = 0;
+    public const FAILURE = 1;
     protected $signature = 'api-contract:docs
                             {--path= : Path to write the Markdown documentation file}';
 
@@ -32,7 +34,7 @@ class MarkdownCommand extends Command
         if ($path === null || $path === false || is_array($path)) {
             $this->line($markdown);
 
-            return Command::SUCCESS;
+            return self::SUCCESS;
         }
 
         $path = (string) $path;
@@ -45,18 +47,18 @@ class MarkdownCommand extends Command
             if (!mkdir($directory, 0755, true) && !is_dir($directory)) {
                 $this->components->error("Failed to create directory: {$directory}");
 
-                return Command::FAILURE;
+                return self::FAILURE;
             }
         }
 
         if (file_put_contents($path, $markdown) === false) {
             $this->components->error("Failed to write Markdown documentation to: {$path}");
 
-            return Command::FAILURE;
+            return self::FAILURE;
         }
 
-        $this->components->success("Markdown documentation written to: {$path}");
+        $this->components->info("Markdown documentation written to: {$path}");
 
-        return Command::SUCCESS;
+        return self::SUCCESS;
     }
 }

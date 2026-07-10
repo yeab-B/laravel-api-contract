@@ -11,6 +11,8 @@ use Yab\LaravelApiContract\Contracts\RouteAnalyzerContract;
 
 class RequestsCommand extends Command
 {
+    public const SUCCESS = 0;
+    public const FAILURE = 1;
     protected $signature = 'api-contract:requests';
 
     protected $description = 'Analyze Form Request classes from discovered API routes.';
@@ -30,7 +32,7 @@ class RequestsCommand extends Command
         if ($routes->isEmpty()) {
             $this->warn('No API routes discovered. Nothing to analyze.');
 
-            return Command::SUCCESS;
+            return self::SUCCESS;
         }
 
         $analyzed = 0;
@@ -86,6 +88,6 @@ class RequestsCommand extends Command
         $this->components->twoColumnDetail('Analyzed', (string) $analyzed);
         $this->components->twoColumnDetail('Skipped', (string) $skipped);
 
-        return Command::SUCCESS;
+        return self::SUCCESS;
     }
 }

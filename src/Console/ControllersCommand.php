@@ -10,6 +10,8 @@ use Yab\LaravelApiContract\Contracts\RouteAnalyzerContract;
 
 class ControllersCommand extends Command
 {
+    public const SUCCESS = 0;
+    public const FAILURE = 1;
     protected $signature = 'api-contract:controllers';
 
     protected $description = 'Analyze controllers from discovered API routes.';
@@ -28,7 +30,7 @@ class ControllersCommand extends Command
         if ($routes->isEmpty()) {
             $this->warn('No API routes discovered. Nothing to analyze.');
 
-            return Command::SUCCESS;
+            return self::SUCCESS;
         }
 
         $analyzed = 0;
@@ -85,6 +87,6 @@ class ControllersCommand extends Command
         $this->components->twoColumnDetail('Analyzed', (string) $analyzed);
         $this->components->twoColumnDetail('Skipped', (string) $skipped);
 
-        return Command::SUCCESS;
+        return self::SUCCESS;
     }
 }

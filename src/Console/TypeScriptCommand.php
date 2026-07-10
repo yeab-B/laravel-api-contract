@@ -11,6 +11,8 @@ use Yab\LaravelApiContract\Config\Configuration;
 
 class TypeScriptCommand extends Command
 {
+    public const SUCCESS = 0;
+    public const FAILURE = 1;
     protected $signature = 'api-contract:typescript
                             {--output= : Path to write the generated TypeScript file}';
 
@@ -30,7 +32,7 @@ class TypeScriptCommand extends Command
         if ($files === []) {
             $this->components->warn('No endpoints found; no TypeScript files generated.');
 
-            return Command::SUCCESS;
+            return self::SUCCESS;
         }
 
         $outputPath = $this->option('output');
@@ -41,7 +43,7 @@ class TypeScriptCommand extends Command
                 $this->line($file['content']);
             }
 
-            return Command::SUCCESS;
+            return self::SUCCESS;
         }
 
         $outputPath = (string) $outputPath;
@@ -54,7 +56,7 @@ class TypeScriptCommand extends Command
             if (!mkdir($directory, 0755, true) && !is_dir($directory)) {
                 $this->components->error("Failed to create directory: {$directory}");
 
-                return Command::FAILURE;
+                return self::FAILURE;
             }
         }
 
@@ -64,10 +66,10 @@ class TypeScriptCommand extends Command
             if (file_put_contents($outputPath, $content) === false) {
                 $this->components->error("Failed to write TypeScript file to: {$outputPath}");
 
-                return Command::FAILURE;
+                return self::FAILURE;
             }
 
-            $this->components->success("TypeScript definitions written to: {$outputPath}");
+            $this->components->info("TypeScript definitions written to: {$outputPath}");
         } else {
             $base = rtrim($outputPath, '/');
 
@@ -75,7 +77,7 @@ class TypeScriptCommand extends Command
                 if (!mkdir($base, 0755, true) && !is_dir($base)) {
                     $this->components->error("Failed to create directory: {$base}");
 
-                    return Command::FAILURE;
+                    return self::FAILURE;
                 }
             }
 
@@ -85,13 +87,13 @@ class TypeScriptCommand extends Command
                 if (file_put_contents($filePath, $file['content']) === false) {
                     $this->components->error("Failed to write: {$filePath}");
 
-                    return Command::FAILURE;
+                    return self::FAILURE;
                 }
             }
 
-            $this->components->success('TypeScript definitions written to: ' . $base);
+            $this->components->info('TypeScript definitions written to: ' . $base);
         }
 
-        return Command::SUCCESS;
+        return self::SUCCESS;
     }
 }

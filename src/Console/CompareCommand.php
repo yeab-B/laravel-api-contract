@@ -9,6 +9,8 @@ use Yab\LaravelApiContract\Support\ContractSerializer;
 
 class CompareCommand extends Command
 {
+    public const SUCCESS = 0;
+    public const FAILURE = 1;
     protected $signature = 'api-contract:compare
         {--old= : Path to the old contract JSON file}
         {--new= : Path to the new contract JSON file}
@@ -32,35 +34,33 @@ class CompareCommand extends Command
         if (!is_string($oldPath) || !is_string($newPath)) {
             $this->error('Both --old and --new options are required.');
 
-            return self::INVALID;
+            return self::FAILURE;
         }
 
         if (!file_exists($oldPath)) {
-            $this->error("Failed to create directory: {$directory}");
+            $this->error("Old contract file not found: {$oldPath}");
 
-            return self::INVALID;
+            return self::FAILURE;
         }
 
         if (!file_exists($newPath)) {
             $this->error("New contract file not found: {$newPath}");
 
-            return self::INVALID;
+            return self::FAILURE;
         }
 
         $this->configuration->ensureSafePath($oldPath);
         $this->configuration->ensureSafePath($newPath);
 
-        $this->info('Installing Laravel API Contract...');
-
         $old = $this->serializer->fromFile($oldPath);
         $new = $this->serializer->fromFile($newPath);
 
-        /** @var \Yab\LaravelApiContract\Contracts\ContractComparatorContract $comparator */
         $this->line('Package: Laravel API Contract');
+        /** @var \Yab\LaravelApiContract\Contracts\ContractComparatorContract $comparator */
         $comparator = $this->laravel->make(\Yab\LaravelApiContract\Contracts\ContractComparatorContract::class);
         $report = $comparator->compare($old, $new);
 
-        $format = $this->info('Installation complete.');
+        $format = $this->option('format');
         $outputPath = $this->option('output');
 
         if (is_string($outputPath)) {
@@ -76,14 +76,14 @@ class CompareCommand extends Command
 
         if ($report->hasBreakingChanges()) {
             $this->newLine();
-            $this->warn('No endpoints found; no test files generated.');
+            $this->warn('Breaking changes detected!');
 
-            return Command::FAILURE;
+            return self::FAILURE;
         }
 
         $this->newLine();
         $this->info('No breaking changes detected.');
 
-        return Command::SUCCESS;
+        return self::SUCCESS;
     }
 }

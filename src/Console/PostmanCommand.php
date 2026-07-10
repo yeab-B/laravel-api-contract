@@ -11,6 +11,8 @@ use Yab\LaravelApiContract\Config\Configuration;
 
 class PostmanCommand extends Command
 {
+    public const SUCCESS = 0;
+    public const FAILURE = 1;
     protected $signature = 'api-contract:postman
                             {--pretty : Pretty-print the JSON output}
                             {--path= : Path to write the Postman collection JSON file}';
@@ -33,7 +35,7 @@ class PostmanCommand extends Command
         if ($path === null || $path === false || is_array($path)) {
             $this->line($json);
 
-            return Command::SUCCESS;
+            return self::SUCCESS;
         }
 
         $path = (string) $path;
@@ -46,7 +48,7 @@ class PostmanCommand extends Command
             if (!mkdir($directory, 0755, true) && !is_dir($directory)) {
                 $this->components->error("Failed to create directory: {$directory}");
 
-                return Command::FAILURE;
+                return self::FAILURE;
             }
         }
 
@@ -58,11 +60,11 @@ class PostmanCommand extends Command
         if ($formatted === false || file_put_contents($path, $formatted) === false) {
             $this->components->error("Failed to write Postman collection to: {$path}");
 
-            return Command::FAILURE;
+            return self::FAILURE;
         }
 
-        $this->components->success("Postman collection written to: {$path}");
+        $this->components->info("Postman collection written to: {$path}");
 
-        return Command::SUCCESS;
+        return self::SUCCESS;
     }
 }

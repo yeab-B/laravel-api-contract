@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\File;
 
 class InstallCommand extends Command
 {
+    public const SUCCESS = 0;
+    public const FAILURE = 1;
     protected $signature = 'api-contract:install
         {--force : Overwrite existing configuration}';
 
@@ -24,7 +26,7 @@ class InstallCommand extends Command
 
         $this->components->info('Installation complete.');
 
-        return Command::SUCCESS;
+        return self::SUCCESS;
     }
 
     private function publishConfiguration(): void

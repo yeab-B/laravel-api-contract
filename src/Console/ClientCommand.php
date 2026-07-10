@@ -11,6 +11,8 @@ use Yab\LaravelApiContract\Config\Configuration;
 
 class ClientCommand extends Command
 {
+    public const SUCCESS = 0;
+    public const FAILURE = 1;
     protected $signature = 'api-contract:client
                             {--output= : Path to the directory where client files will be written}';
 
@@ -30,7 +32,7 @@ class ClientCommand extends Command
         if ($files === []) {
             $this->warn('No endpoints found; no client files generated.');
 
-            return Command::SUCCESS;
+            return self::SUCCESS;
         }
 
         $outputPath = $this->option('output');
@@ -41,7 +43,7 @@ class ClientCommand extends Command
                 $this->line($file['content']);
             }
 
-            return Command::SUCCESS;
+            return self::SUCCESS;
         }
 
         $outputPath = (string) $outputPath;
@@ -52,7 +54,7 @@ class ClientCommand extends Command
             if (!mkdir($outputPath, 0755, true) && !is_dir($outputPath)) {
                 $this->error("Failed to create directory: {$outputPath}");
 
-                return Command::FAILURE;
+                return self::FAILURE;
             }
         }
 
@@ -62,12 +64,12 @@ class ClientCommand extends Command
             if (file_put_contents($filePath, $file['content']) === false) {
                 $this->error("Failed to write: {$filePath}");
 
-                return Command::FAILURE;
+                return self::FAILURE;
             }
         }
 
         $this->info('TypeScript API client written to: ' . $outputPath);
 
-        return Command::SUCCESS;
+        return self::SUCCESS;
     }
 }
