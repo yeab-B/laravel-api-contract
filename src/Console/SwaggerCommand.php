@@ -33,7 +33,7 @@ class SwaggerCommand extends Command
         if ($path === null || $path === false || is_array($path)) {
             $this->line($json);
 
-            return self::SUCCESS;
+            return Command::SUCCESS;
         }
 
         $path = (string) $path;
@@ -46,7 +46,7 @@ class SwaggerCommand extends Command
             if (!mkdir($directory, 0755, true) && !is_dir($directory)) {
                 $this->components->error("Failed to create directory: {$directory}");
 
-                return self::FAILURE;
+                return Command::FAILURE;
             }
         }
 
@@ -58,11 +58,11 @@ class SwaggerCommand extends Command
         if ($formatted === false || file_put_contents($path, $formatted) === false) {
             $this->components->error("Failed to write Swagger document to: {$path}");
 
-            return self::FAILURE;
+            return Command::FAILURE;
         }
 
         $this->components->success("Swagger document written to: {$path}");
 
-        return self::SUCCESS;
+        return Command::SUCCESS;
     }
 }

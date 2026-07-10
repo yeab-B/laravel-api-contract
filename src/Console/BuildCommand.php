@@ -25,7 +25,7 @@ class BuildCommand extends Command
 
     public function handle(): int
     {
-        $this->components->info('Building API contract...');
+        $this->info('Building API contract...');
 
         $contract = $this->builder->build();
 
@@ -34,7 +34,7 @@ class BuildCommand extends Command
         if ($endpointCount === 0) {
             $this->warn('No API endpoints discovered. Contract is empty.');
         } else {
-            $this->components->twoColumnDetail('Endpoints discovered', (string) $endpointCount);
+            $this->line('Endpoints discovered: ' . (string) $endpointCount);
         }
 
         $pathOption = $this->option('path');
@@ -45,8 +45,8 @@ class BuildCommand extends Command
 
         $this->serializer->toFile($contract, $path, $pretty);
 
-        $this->components->twoColumnDetail('Contract saved to', $path);
+        $this->line('Contract saved to: ' . $path);
 
-        return self::SUCCESS;
+        return Command::SUCCESS;
     }
 }

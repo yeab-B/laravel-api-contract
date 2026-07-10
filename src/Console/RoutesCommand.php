@@ -26,7 +26,7 @@ class RoutesCommand extends Command
         if ($collection->isEmpty()) {
             $this->warn('No API routes discovered.');
 
-            return self::SUCCESS;
+            return Command::SUCCESS;
         }
 
         $headers = ['Method', 'URI', 'Name', 'Controller', 'Middleware'];
@@ -49,6 +49,6 @@ class RoutesCommand extends Command
             (string) $collection->count(),
         );
 
-        return self::SUCCESS;
+        return Command::SUCCESS;
     }
 }

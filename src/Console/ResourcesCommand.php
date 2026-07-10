@@ -30,7 +30,7 @@ class ResourcesCommand extends Command
         if ($routes->isEmpty()) {
             $this->warn('No API routes discovered. Nothing to analyze.');
 
-            return self::SUCCESS;
+            return Command::SUCCESS;
         }
 
         $analyzed = 0;
@@ -110,6 +110,6 @@ class ResourcesCommand extends Command
         $this->components->twoColumnDetail('Analyzed', (string) $analyzed);
         $this->components->twoColumnDetail('Skipped', (string) $skipped);
 
-        return self::SUCCESS;
+        return Command::SUCCESS;
     }
 }

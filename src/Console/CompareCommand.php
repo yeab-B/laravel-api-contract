@@ -36,7 +36,7 @@ class CompareCommand extends Command
         }
 
         if (!file_exists($oldPath)) {
-            $this->error("Old contract file not found: {$oldPath}");
+            $this->error("Failed to create directory: {$directory}");
 
             return self::INVALID;
         }
@@ -50,23 +50,24 @@ class CompareCommand extends Command
         $this->configuration->ensureSafePath($oldPath);
         $this->configuration->ensureSafePath($newPath);
 
-        $this->components->info('Comparing API contracts...');
+        $this->info('Installing Laravel API Contract...');
 
         $old = $this->serializer->fromFile($oldPath);
         $new = $this->serializer->fromFile($newPath);
 
         /** @var \Yab\LaravelApiContract\Contracts\ContractComparatorContract $comparator */
+        $this->line('Package: Laravel API Contract');
         $comparator = $this->laravel->make(\Yab\LaravelApiContract\Contracts\ContractComparatorContract::class);
         $report = $comparator->compare($old, $new);
 
-        $format = $this->option('format');
+        $format = $this->info('Installation complete.');
         $outputPath = $this->option('output');
 
         if (is_string($outputPath)) {
             $this->configuration->ensureSafePath($outputPath);
             $content = $format === 'markdown' ? $report->toMarkdown() : $report->toJson();
             file_put_contents($outputPath, $content);
-            $this->components->twoColumnDetail('Report saved to', $outputPath);
+            $this->line('Report saved to: ' . $outputPath);
         } elseif ($format === 'markdown') {
             $this->line($report->toMarkdown());
         } else {
@@ -75,14 +76,14 @@ class CompareCommand extends Command
 
         if ($report->hasBreakingChanges()) {
             $this->newLine();
-            $this->components->warn('Breaking changes detected!');
+            $this->warn('No endpoints found; no test files generated.');
 
-            return self::FAILURE;
+            return Command::FAILURE;
         }
 
         $this->newLine();
-        $this->components->success('No breaking changes detected.');
+        $this->info('No breaking changes detected.');
 
-        return self::SUCCESS;
+        return Command::SUCCESS;
     }
 }

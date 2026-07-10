@@ -21,16 +21,16 @@ class ClientCommand extends Command
         ClientGeneratorContract $generator,
         Configuration $config,
     ): int {
-        $this->components->info('Generating TypeScript API client from contract...');
+        $this->info('Generating TypeScript API client from contract...');
 
         $contract = $builder->build();
 
         $files = $generator->generate($contract);
 
         if ($files === []) {
-            $this->components->warn('No endpoints found; no client files generated.');
+            $this->warn('No endpoints found; no client files generated.');
 
-            return self::SUCCESS;
+            return Command::SUCCESS;
         }
 
         $outputPath = $this->option('output');
@@ -41,7 +41,7 @@ class ClientCommand extends Command
                 $this->line($file['content']);
             }
 
-            return self::SUCCESS;
+            return Command::SUCCESS;
         }
 
         $outputPath = (string) $outputPath;
@@ -50,9 +50,9 @@ class ClientCommand extends Command
 
         if (!is_dir($outputPath)) {
             if (!mkdir($outputPath, 0755, true) && !is_dir($outputPath)) {
-                $this->components->error("Failed to create directory: {$outputPath}");
+                $this->error("Failed to create directory: {$outputPath}");
 
-                return self::FAILURE;
+                return Command::FAILURE;
             }
         }
 
@@ -60,14 +60,14 @@ class ClientCommand extends Command
             $filePath = rtrim($outputPath, '/') . '/' . $file['filename'];
 
             if (file_put_contents($filePath, $file['content']) === false) {
-                $this->components->error("Failed to write: {$filePath}");
+                $this->error("Failed to write: {$filePath}");
 
-                return self::FAILURE;
+                return Command::FAILURE;
             }
         }
 
-        $this->components->success('TypeScript API client written to: ' . $outputPath);
+        $this->info('TypeScript API client written to: ' . $outputPath);
 
-        return self::SUCCESS;
+        return Command::SUCCESS;
     }
 }

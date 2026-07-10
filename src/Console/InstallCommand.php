@@ -24,7 +24,7 @@ class InstallCommand extends Command
 
         $this->components->info('Installation complete.');
 
-        return self::SUCCESS;
+        return Command::SUCCESS;
     }
 
     private function publishConfiguration(): void

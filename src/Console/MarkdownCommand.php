@@ -32,7 +32,7 @@ class MarkdownCommand extends Command
         if ($path === null || $path === false || is_array($path)) {
             $this->line($markdown);
 
-            return self::SUCCESS;
+            return Command::SUCCESS;
         }
 
         $path = (string) $path;
@@ -45,18 +45,18 @@ class MarkdownCommand extends Command
             if (!mkdir($directory, 0755, true) && !is_dir($directory)) {
                 $this->components->error("Failed to create directory: {$directory}");
 
-                return self::FAILURE;
+                return Command::FAILURE;
             }
         }
 
         if (file_put_contents($path, $markdown) === false) {
             $this->components->error("Failed to write Markdown documentation to: {$path}");
 
-            return self::FAILURE;
+            return Command::FAILURE;
         }
 
         $this->components->success("Markdown documentation written to: {$path}");
 
-        return self::SUCCESS;
+        return Command::SUCCESS;
     }
 }

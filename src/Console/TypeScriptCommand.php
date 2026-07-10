@@ -30,7 +30,7 @@ class TypeScriptCommand extends Command
         if ($files === []) {
             $this->components->warn('No endpoints found; no TypeScript files generated.');
 
-            return self::SUCCESS;
+            return Command::SUCCESS;
         }
 
         $outputPath = $this->option('output');
@@ -41,7 +41,7 @@ class TypeScriptCommand extends Command
                 $this->line($file['content']);
             }
 
-            return self::SUCCESS;
+            return Command::SUCCESS;
         }
 
         $outputPath = (string) $outputPath;
@@ -54,7 +54,7 @@ class TypeScriptCommand extends Command
             if (!mkdir($directory, 0755, true) && !is_dir($directory)) {
                 $this->components->error("Failed to create directory: {$directory}");
 
-                return self::FAILURE;
+                return Command::FAILURE;
             }
         }
 
@@ -64,7 +64,7 @@ class TypeScriptCommand extends Command
             if (file_put_contents($outputPath, $content) === false) {
                 $this->components->error("Failed to write TypeScript file to: {$outputPath}");
 
-                return self::FAILURE;
+                return Command::FAILURE;
             }
 
             $this->components->success("TypeScript definitions written to: {$outputPath}");
@@ -75,7 +75,7 @@ class TypeScriptCommand extends Command
                 if (!mkdir($base, 0755, true) && !is_dir($base)) {
                     $this->components->error("Failed to create directory: {$base}");
 
-                    return self::FAILURE;
+                    return Command::FAILURE;
                 }
             }
 
@@ -85,13 +85,13 @@ class TypeScriptCommand extends Command
                 if (file_put_contents($filePath, $file['content']) === false) {
                     $this->components->error("Failed to write: {$filePath}");
 
-                    return self::FAILURE;
+                    return Command::FAILURE;
                 }
             }
 
             $this->components->success('TypeScript definitions written to: ' . $base);
         }
 
-        return self::SUCCESS;
+        return Command::SUCCESS;
     }
 }
