@@ -4,10 +4,18 @@
 </p>
 
 <p align="center">
-    <a href="https://packagist.org/packages/yab/laravel-api-contract"><img src="https://img.shields.io/packagist/v/yab/laravel-api-contract.svg?style=flat-square" alt="Latest Version on Packagist"></a>
-    <a href="https://packagist.org/packages/yab/laravel-api-contract"><img src="https://img.shields.io/packagist/dt/yab/laravel-api-contract.svg?style=flat-square" alt="Total Downloads"></a>
-    <a href="https://github.com/yab/laravel-api-contract/actions"><img src="https://img.shields.io/github/actions/workflow/status/yab/laravel-api-contract/tests.yml?branch=main&style=flat-square" alt="Build Status"></a>
-    <a href="https://packagist.org/packages/yab/laravel-api-contract"><img src="https://img.shields.io/packagist/l/yab/laravel-api-contract.svg?style=flat-square" alt="License"></a>
+    <a href="https://packagist.org/packages/yeab/laravel-api-contract">
+        <img src="https://img.shields.io/packagist/v/yeab/laravel-api-contract.svg?style=flat-square" alt="Latest Version on Packagist">
+    </a>
+    <a href="https://packagist.org/packages/yeab/laravel-api-contract">
+        <img src="https://img.shields.io/packagist/dt/yeab/laravel-api-contract.svg?style=flat-square" alt="Total Downloads">
+    </a>
+    <a href="https://github.com/yeab/laravel-api-contract/actions">
+        <img src="https://img.shields.io/github/actions/workflow/status/yeab/laravel-api-contract/tests.yml?branch=main&style=flat-square" alt="Build Status">
+    </a>
+    <a href="https://packagist.org/packages/yeab/laravel-api-contract">
+        <img src="https://img.shields.io/packagist/l/yeab/laravel-api-contract.svg?style=flat-square" alt="License">
+    </a>
 </p>
 
 ---
