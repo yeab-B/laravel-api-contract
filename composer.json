@@ -1,0 +1,74 @@
+{
+    "name": "yeab/laravel-api-contract",
+    "description": "Define API contracts in your Laravel application and generate TypeScript types, API clients, SDKs, OpenAPI specs, Postman collections, and more.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "laravel",
+        "api",
+        "contract",
+        "openapi",
+        "swagger",
+        "typescript",
+        "postman",
+        "code-generation",
+        "static-analysis",
+        "documentation"
+    ],
+    "authors": [
+        {
+            "name": "Yeabsira Behailu",
+            "email": "yeabsira@example.com",
+            "homepage": "https://github.com/yeab-B",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/yeab-B/laravel-api-contract/issues",
+        "source": "https://github.com/yeab-B/laravel-api-contract"
+    },
+    "require": {
+        "php": "^8.2",
+        "illuminate/console": "^11.0|^12.0",
+        "illuminate/contracts": "^11.0|^12.0",
+        "illuminate/support": "^11.0|^12.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^9.0|^10.0",
+        "phpunit/phpunit": "^11.0",
+        "phpstan/phpstan": "^1.12",
+        "squizlabs/php_codesniffer": "^3.10"
+    },
+    "autoload": {
+        "psr-4": {
+            "Yab\\LaravelApiContract\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Yab\\LaravelApiContract\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Yab\\LaravelApiContract\\Providers\\LaravelApiContractServiceProvider"
+            ],
+            "aliases": {
+                "ApiContract": "Yab\\LaravelApiContract\\Support\\Facades\\ApiContract"
+            }
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "test-coverage": "phpunit --coverage-html coverage",
+        "lint": "phpcs --standard=PSR12 src/",
+        "lint-fix": "phpcbf --standard=PSR12 src/",
+        "analyse": "phpstan analyse --memory-limit=2G"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
